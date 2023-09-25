@@ -36,7 +36,7 @@ function App() {
 
   if (error) {
     return (
-      <div>{error}</div>
+      <h1>{error}</h1>
     );
   }
 
