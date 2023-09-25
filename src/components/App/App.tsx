@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import GamesList from './games/GamesList';
 import { getLocalGames } from 'servises/localStorage.service';
 import { Game } from 'types/game';
+import { GlobalStyle } from './styles';
+import MainPage from 'components/pages/main-page/main-page';
 
 interface Load {
   (data: Game[]): void,
@@ -40,10 +41,10 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {isLoading && <p>Loading...</p>}
-      {!isLoading && <GamesList games={games} />}
-    </div>
+    <>
+      <GlobalStyle />
+      <MainPage isLoading={isLoading} games={games} />
+    </>
   );
 }
 
