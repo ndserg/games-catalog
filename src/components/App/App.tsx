@@ -5,6 +5,7 @@ import { Game } from 'types/game';
 import { GlobalStyle } from './styles';
 import MainPage from 'components/pages/main-page/main-page';
 import GamePage from 'components/pages/game-page/game-page';
+import Header from 'components/layout/header/header';
 
 interface Load {
   (data: Game[]): void,
@@ -45,6 +46,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <Header />
       <Routes>
         <Route path='/' element={<MainPage isLoading={isLoading} games={games} />}/>
         <Route path='/game/:id' element={<GamePage />}/>
