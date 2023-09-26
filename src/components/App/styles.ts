@@ -62,8 +62,15 @@ export const GlobalStyle = createGlobalStyle`
 
     @media (min-width: ${(props) =>props.theme.desktopWidth}) {
       min-width: ${(props) => props.theme.desktopWidth};
-      max-width: 1512px;
       width: auto;
+      padding-right: 70px;
+      padding-left: 70px;
+    }
+
+    @media (min-width: 1512px) {
+      width: 1512px;
+      padding-right: 10px;
+      padding-left: 10px;
     }
   }
 `;
