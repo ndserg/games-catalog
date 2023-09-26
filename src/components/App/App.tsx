@@ -6,6 +6,8 @@ import { GlobalStyle } from './styles';
 import MainPage from 'components/pages/main-page/main-page';
 import GamePage from 'components/pages/game-page/game-page';
 import Header from 'components/layout/header/header';
+import { sortByDate, filterByGenre, filterByPlatform } from 'utils/utils';
+import { sortType } from 'const';
 
 interface Load {
   (data: Game[]): void,
@@ -22,7 +24,9 @@ function App() {
 
   const onLoad: Load = (data) => {
     setError('');
-    setGames(data.slice(0, 20));
+
+    const sortedGames = sortByDate(data, sortType.DESC);
+    setGames(sortedGames.slice(0, 20));
   };
 
   const onError: Error = (message): void => {
