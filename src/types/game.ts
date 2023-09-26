@@ -1,4 +1,4 @@
-export type Game = {
+export interface Game {
   developer: string,
   game_url: string,
   genre: string,
@@ -10,4 +10,20 @@ export type Game = {
   short_description: string,
   thumbnail: string,
   title: string,
+}
+
+type SystemRequirements = {
+  [key: string]: string
 };
+
+type Screenshot = {
+  id: number,
+  image: string,
+};
+
+export interface GameDescription extends Game {
+  description: string,
+  screenshots: Screenshot[],
+  status: string,
+  minimum_system_requirements?: SystemRequirements,
+}

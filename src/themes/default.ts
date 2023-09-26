@@ -43,6 +43,6 @@ export const defaultTheme = {
 
   // viewports
   mobileWidth: '360px',
-  tabletWidth: '744px',
+  tabletWidth: '604px',
   desktopWidth: '1280px',
 };
