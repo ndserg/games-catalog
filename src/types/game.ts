@@ -2,7 +2,7 @@ export interface Game {
   developer: string,
   game_url: string,
   genre: string,
-  id: number
+  id: number,
   platform: string,
   profile_url: string,
   publisher: string,

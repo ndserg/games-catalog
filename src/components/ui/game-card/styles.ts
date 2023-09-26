@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const StyledGameCard = styled.article`
+  position: relative;
+
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -148,6 +150,26 @@ export const FavoriteButton = styled.button<{ $favorite?: boolean }>`
       fill: ${(props) => props.theme.colorPrimary};
     }
   }
+`;
+
+export const Badge = styled.span`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  display: inline-block;
+  padding: 5px;
+
+  color: ${(props) => props.theme.colorWhite};
+  font-weight: 500;
+  font-size: 14px;
+  text-align: center;
+
+  background-color: ${(props) => props.theme.colorSecondary_75};
+
+  border-radius: ${(props) => props.theme.defaultBorderRadius};
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
 `;
 
 
