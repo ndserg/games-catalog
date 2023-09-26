@@ -8,8 +8,14 @@ export const StyledGameCard = styled.article`
   
   border-radius: ${(props) => props.theme.defaultBorderRadius};
 
-  box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 0px 22px 0px rgba(0, 0, 0, 0.07);
 
+  &:active {
+    box-shadow: 0px 0px 12px 0px ${(props) => props.theme.colorPrimary_75};
+    transform: scale(1.05);
+    transition: all 0.5s ease-out;
+  }
+  
   @media (min-width: ${(props) =>props.theme.tabletWidth}) {
     flex-direction: row;
     align-items: center;
@@ -17,6 +23,12 @@ export const StyledGameCard = styled.article`
 
   @media (min-width: ${(props) =>props.theme.desktopWidth}) {
     flex-direction: column;
+
+    &:hover {
+      box-shadow: 0px 0px 12px 0px ${(props) => props.theme.colorPrimary_75};
+      transform: scale(1.05);
+      transition: all 0.5s ease-out;
+    }
   }
 `;
 

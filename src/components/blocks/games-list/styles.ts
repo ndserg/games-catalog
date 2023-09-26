@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Ul } from 'components/styled';
+import { Link } from 'react-router-dom';
 
 export const StyledList = styled(Ul)`
   display: flex;
@@ -16,4 +17,8 @@ export const StyledList = styled(Ul)`
       width: ${(props) =>props.theme.mobileWidth};
     }
   }
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
 `;

@@ -1,5 +1,7 @@
 const checkStatus = (response: Response) => {
-  if (response.status >= 200 && response.status < 300) {
+  if (response.headers.get('Content-Type')?.includes('text/html')) {
+    throw new Error('Запрашиваемая страница не найдена!');
+  } else if (response.status >= 200 && response.status < 300) {
     return response;
   } else {
     throw new Error(`${response.status}: ${response.statusText}`);
@@ -8,6 +10,14 @@ const checkStatus = (response: Response) => {
 
 export const getAllGames = () => {
   return fetch('https://www.mmobomb.com/api1/games')
+    .then(checkStatus)
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const getGame = (id: string) => {
+  return fetch(`https://www.mmobomb.com/api1/game?id=${id}`)
     .then(checkStatus)
     .catch((err) => {
       throw err;
