@@ -28,11 +28,11 @@ const Search = ({ name }:SearchProps ) => {
   const selectHandler = (evt: React.MouseEvent<HTMLElement>) => {
     evt.preventDefault();
 
-    const target = evt.target as HTMLElement;
+    // const target = evt.target as HTMLElement;
   
-    if (target.tagName === 'LI') {
-      console.log(evt.target);
-    }
+    // if (target.tagName === 'LI') {
+    //   console.log(evt.target);
+    // }
   };
 
   const clearHandler = (evt: React.MouseEvent<HTMLElement>) => {

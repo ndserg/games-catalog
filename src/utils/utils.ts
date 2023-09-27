@@ -1,5 +1,5 @@
 import { Game } from 'types/game';
-import { sortType } from 'const';
+import { sortTypes } from 'const';
 
 type GamesKeys = {
   [key: string]: string,
@@ -17,7 +17,7 @@ export const sortByDate = (items: Game[], sortDirection: string) => {
   const gamesByDate: Game[] = items.slice().sort((a: Game, b: Game): number => {
     const firstDate = new Date(a.release_date);
     const secondtDate = new Date(b.release_date);
-    const sortVars = sortDirection === sortType.ASC ? [firstDate, secondtDate] : [secondtDate, firstDate];
+    const sortVars = sortDirection === sortTypes.ASC ? [firstDate, secondtDate] : [secondtDate, firstDate];
 
     if (sortVars[0] > sortVars[1]) {
       return 1;
