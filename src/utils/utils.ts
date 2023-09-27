@@ -40,13 +40,19 @@ export const filterByGenre = (items: Game[], genre: string): Game[] => {
 };
 
 export const filterByPlatform = (items: Game[], platform: string): Game[] => {
-  const gamesByPlatform = items.filter((item: Game) => item.platform.includes(platform));
+  let filteredItems = [];
 
-  return gamesByPlatform;
+  if (!platform || platform === 'allgames') {
+    filteredItems = items;
+  } else {
+    filteredItems = items.filter((item: Game) => item.platform.includes(platform));
+  }
+
+  return filteredItems;
 };
 
 export const paginate = (items: Game[], currentPage: number, pageItemsCount: number): Game[] => {
-  const startIndex = (currentPage - 1) * pageItemsCount + 1;
+  const startIndex = (currentPage - 1) * pageItemsCount;
 
   return items.slice(startIndex, startIndex + pageItemsCount);
 };

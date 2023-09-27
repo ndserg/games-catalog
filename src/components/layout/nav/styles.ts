@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const NavWrapper = styled.nav`
   display: flex;
   column-gap: 15px;
 `;
 
-export const NavLink = styled(Link)`
+export const StyledLink = styled(NavLink)`
   display: block;
   padding-top: 10px;
   padding-right: 16px;
@@ -29,7 +29,7 @@ export const NavLink = styled(Link)`
     background-color: ${(props) =>props.theme.colorPrimary};
   }
 
-  &:active {
+  &.active {
     color: ${(props) =>props.theme.colorWhite};
 
     background-color: ${(props) =>props.theme.colorPrimary_75};

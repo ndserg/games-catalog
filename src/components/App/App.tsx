@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalGames } from 'servises/localStorage.service';
 import { Game } from 'types/game';
@@ -6,7 +6,7 @@ import { GlobalStyle } from './styles';
 import MainPage from 'components/pages/main-page/main-page';
 import GamePage from 'components/pages/game-page/game-page';
 import Header from 'components/layout/header/header';
-import { sortByDate, filterByGenre, filterByPlatform } from 'utils/utils';
+import { sortByDate } from 'utils/utils';
 import { sortType } from 'const';
 
 interface Load {
@@ -17,7 +17,7 @@ interface Error {
   (message: string): void,
 }
 
-function App() {
+export const App = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -26,7 +26,7 @@ function App() {
     setError('');
 
     const sortedGames = sortByDate(data, sortType.DESC);
-    setGames(sortedGames.slice(0, 20));
+    setGames(sortedGames);
   };
 
   const onError: Error = (message): void => {
@@ -52,11 +52,12 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path='/' element={<MainPage isLoading={isLoading} games={games} />}/>
+        <Route path='/' element={<Navigate to='/allgames/' replace />}/>
+        <Route path='/:platform?/:page?' element={<MainPage isLoading={isLoading} games={games} />}/>
         <Route path='/game/:id' element={<GamePage />}/>
       </Routes>
     </>
   );
-}
+};
 
 export default App;
