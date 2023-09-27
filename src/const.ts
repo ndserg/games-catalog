@@ -1,10 +1,16 @@
-export const platforms: string[] = ['Windows', 'Browser'];
+type PlatformsTypes = {
+  [key: string]: string,
+};
 
-export const pageItemsCount = 20;
+export const platforms: PlatformsTypes = {
+  Windows: 'PC Games', 
+  Browser: 'Browser Games',
+};
+
+export const pageItemsCount = 16;
 
 type SortTypes = {
-  ASC: string,
-  DESC: string,
+  [key: string]: string,
 };
 
 export const sortType: SortTypes = {

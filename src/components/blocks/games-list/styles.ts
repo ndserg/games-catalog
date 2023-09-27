@@ -7,14 +7,40 @@ export const StyledList = styled(Ul)`
   flex-direction: column;
   row-gap: 20px;
 
-  @media (min-width: ${(props) =>props.theme.desktopWidth}) {
+  margin-bottom: 30px;
+
+  @media (min-width: ${(props) => props.theme.tabletWidth}) {
+    margin-bottom: 45px;
+  }
+
+  @media (min-width: ${(props) => props.theme.desktopWidth}) {
+    justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
-    column-gap: 10px;
 
     & li {
-      width: ${(props) =>props.theme.mobileWidth};
+      width: ${(props) => props.theme.mobileWidth};
+      margin-right: 30px;
+    }
+
+    & li:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  @media (min-width: 1512px) {
+    justify-content: flex-start;
+
+    & li {
+      margin-right: 16px;
+    }
+
+    & li:nth-child(3n) {
+      margin-right: 16px;
+    }
+
+    & li:nth-child(4n) {
+      margin-right: 0;
     }
   }
 `;

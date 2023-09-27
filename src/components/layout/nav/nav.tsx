@@ -1,10 +1,13 @@
-import { NavWrapper, NavLink } from './styles';
+import { NavWrapper, StyledLink } from './styles';
+import { platforms } from 'const';
 
 const Nav = () => {
   return (
     <NavWrapper>
-      <NavLink to="/">PC Games</NavLink>
-      <NavLink to="/">Browser Games</NavLink>
+      {platforms && Object.keys(platforms).map((platform, idx) => (
+        <StyledLink key={`${platform}_${idx}`} to={`/${platform}`}>{platforms[platform]}</StyledLink>
+      ))
+      }
     </NavWrapper>
   );
 };
