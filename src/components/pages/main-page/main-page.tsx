@@ -1,23 +1,52 @@
 import GamesList from 'components/blocks/games-list/games-list';
 import Loading from 'components/ui/loading/loading';
-import Pagination from 'components/ui/pagination/pagination';
+import Pagination from 'components/common/pagination/pagination';
 import { Game } from 'types/game';
-import { pageItemsCount } from 'const';
-import { useParams } from 'react-router-dom';
-import { filterByGenre, filterByPlatform, paginate } from 'utils/utils';
+import { pageItemsCount, sortTypes } from 'const';
+import { useNavigate, useParams } from 'react-router-dom';
+import { filterByGenre, filterByPlatform, sortByDate, paginate } from 'utils/utils';
 import { Main } from './styles';
+import Filters from 'components/common/filters/filters';
+import { useEffect, useState } from 'react';
 
-interface MainPAgeProps {
+type FilterProps = {
+  [key: string]: string
+};
+
+interface MainPageProps {
   isLoading: boolean,
   games: Game[],
 }
 
-const MainPage = ({ isLoading, games }: MainPAgeProps ) => {
+const MainPage = ({ isLoading, games }: MainPageProps ) => {
+  const navigate = useNavigate();
   const { platform, page } = useParams();
-  const gamesByBlatform = platform ? filterByPlatform(games, platform) : games;
+  const [filters, setFilters] = useState({
+    genre: '',
+    sortType: sortTypes.DESC,
+  });
+  const gamesByPlatform = platform ? filterByPlatform(games, platform) : games;
+  const gamesByGenre = filters.genre ? filterByGenre(gamesByPlatform, filters.genre) : gamesByPlatform;
+  const gamesByDate = sortByDate(gamesByGenre, filters.sortType);
   const currentPage = page ? Number(page) : 1;
-  const cropedGames = paginate(gamesByBlatform, currentPage, pageItemsCount);
- 
+  const cropedGames = paginate(gamesByDate, currentPage, pageItemsCount);
+  const goHome = () => navigate(`/${platform}/1`);
+
+  const onFilterChange = ( filter: FilterProps) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      ...filter,
+    }));
+    goHome();
+  };
+
+  useEffect(() => {
+    setFilters({
+      genre: '',
+      sortType: sortTypes.DESC,
+    });
+  }, [platform]);
+
   if (isLoading) {
     return (
       <main>
@@ -29,10 +58,11 @@ const MainPage = ({ isLoading, games }: MainPAgeProps ) => {
   return (
   <Main>
     <h1 className='visually-hidden'>Каталог игр</h1>
+    <Filters games={games} onFilterChange={onFilterChange} currentFilters={filters}/>
     <GamesList games={cropedGames} />
 
     <Pagination
-      itemsCount={gamesByBlatform.length}
+      itemsCount={gamesByDate.length}
       pageSize={pageItemsCount}
       currentCategory={platform || ''}
       currentPage={currentPage}

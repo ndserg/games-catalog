@@ -13,7 +13,7 @@ type SortTypes = {
   [key: string]: string,
 };
 
-export const sortType: SortTypes = {
+export const sortTypes: SortTypes = {
   ASC: 'asc',
   DESC: 'desc',
 };

@@ -27,7 +27,6 @@ export const SearchIconWrapper = styled.span<{ $isFocus: boolean }>`
   }
 `;
 
-
 export const StyledSearch = styled.input`
   width: 100%;
   padding-top: 14px;
