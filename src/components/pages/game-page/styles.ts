@@ -141,7 +141,7 @@ export const Table = styled.table`
 
   @media (min-width: ${(props) =>props.theme.desktopWidth}) {
     width: 48%;
-    border-left: 2px solid black;
+    border-left: 4px dotted ${(props) => props.theme.colorBlack_15};
   }
 `;
 

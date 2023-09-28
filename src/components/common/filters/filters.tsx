@@ -42,7 +42,6 @@ const Filters = ({ games, onFilterChange, currentFilters }: FiltersProps) => {
   };
 
   const checkedHandler = () => {
-    //console.log(isChecked);
     setIsChecked((prevState) => prevState = !prevState);
   };
 
