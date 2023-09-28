@@ -39,6 +39,31 @@ export const filterByGenre = (items: Game[], genre: string): Game[] => {
   return gamesByGenre;
 };
 
+export const filterByName = (items: Game[], title: string): Game[] => {
+  let result: Game[] = [];
+  const titleSearch = title.trim().toLowerCase();
+
+  if (titleSearch && titleSearch.startsWith(' ')) {
+    return result;
+  }
+  
+  if (titleSearch.length > 0 && titleSearch.length < 3) {
+    const regexp = new RegExp(`\\b${title}(\\w+| [^ ]+|$)`, 'gm');
+    
+    result = items.filter((item: Game) => {
+      const itemTitle = item.title.toLowerCase();
+      return  itemTitle.match(regexp);
+    });
+  } else {
+    result = items.filter((item: Game) => {
+      const itemTitle = item.title.toLowerCase();
+      return  itemTitle.includes(titleSearch);
+    });
+  }
+
+  return result;
+};
+
 export const filterByPlatform = (items: Game[], platform: string): Game[] => {
   let filteredItems = [];
 

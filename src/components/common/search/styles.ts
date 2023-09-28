@@ -1,5 +1,15 @@
-import styled from 'styled-components';
-import { Ul, Li } from 'components/styled';
+import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
+import { Ul } from 'components/styled';
+import { ReactComponent as ClearIcon } from 'assets/icon-x.svg';
+import { ReactComponent as DotsIcon } from 'assets/icon-dots.svg';
+
+const iconStyles = css`
+  width: 100%;
+  height: 100%;
+
+  fill: ${(props) => props.theme.colorBlack_50};
+`;
 
 export const SearchWrapper = styled.div`
   position: relative;
@@ -51,6 +61,8 @@ export const ClearButton = styled.button`
   left: 16px;
 
   display: block;
+  width: 20px;
+  height: 20px;
   padding: 0;
 
   font-size: 0;
@@ -58,13 +70,21 @@ export const ClearButton = styled.button`
   border: none;
 
   background-color: transparent;
+`;
 
-  svg {
-    width: 20px;
-    height: 20px;
+export const StyledClearIcon = styled(ClearIcon)`
+  ${iconStyles}
 
-    fill: ${(props) => props.theme.colorBlack_50};
+  @media (min-width: ${(props) =>props.theme.desktopWidth}) {
+    &:hover {
+      fill: ${(props) => props.theme.colorBlack};
+    }
   }
+`;
+
+export const StyledDotsIcon = styled(DotsIcon)<{ $isFocus: boolean }>`
+  ${iconStyles}
+  fill: ${(props) => props.$isFocus ? props.theme.colorBlack : props.theme.colorBlack_50};
 `;
 
 export const SearchResults = styled(Ul)`
@@ -90,7 +110,7 @@ export const SearchResults = styled(Ul)`
   }
 `;
 
-export const SearchItem = styled(Li)`
+export const SearcLink = styled(Link)`
   display: block;
   margin-bottom: 10px;
   padding: 10px;

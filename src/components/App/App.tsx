@@ -46,7 +46,7 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Header />
+      <Header games={games}/>
       <Routes>
         <Route path='/' element={<Navigate to='/allgames/' replace />}/>
         <Route path='/:platform?/:page?' element={<MainPage isLoading={isLoading} games={games} />}/>

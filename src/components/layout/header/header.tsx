@@ -1,9 +1,14 @@
 import Search from 'components/common/search/search';
 import Nav from '../nav/nav';
 import { ReactComponent as FavoriteImg } from 'assets/icon-favorite.svg';
+import { Game } from 'types/game';
 import { HeaderWrapper, HeaderLogo, StyledLink, StyledHr, FavoriteButton } from './styles';
 
-const Header = () => {
+interface HeaderProps {
+  games: Game[],
+}
+
+const Header = ({ games }: HeaderProps ) => {
   const isDisabled = true;
 
   return (
@@ -19,7 +24,7 @@ const Header = () => {
           <FavoriteImg />
         </FavoriteButton>
 
-        <Search name="search"/>
+        <Search name="search" games={games} />
       </HeaderWrapper>
       <StyledHr />
     </>
