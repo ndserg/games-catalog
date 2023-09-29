@@ -27,10 +27,12 @@ export const App = () => {
   const onLoad: Load = (data) => {
     setError('');
     setGames(data);
+    setIsLoading(false);
   };
 
   const onError: Error = (message): void => {
     setError(message);
+    setIsLoading(false);
   };
 
   const onFavoritesPageHandler = (): void => {
@@ -53,7 +55,6 @@ export const App = () => {
 
     getLocalGames(onLoad, onError);
 
-    setIsLoading(false);
   }, []);
 
   if (error) {

@@ -9,13 +9,7 @@ const checkStatus = (response: Response) => {
 };
 
 export const getAllGames = () => {
-  return fetch('https://mmo-games.p.rapidapi.com/games', {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '1ac0bc8aaemshaed3d523fedbf09p12cec5jsn37ee6f0e3077',
-      'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
-    },
-  })
+  return fetch('https://cors-anywhere.herokuapp.com/https://www.mmobomb.com/api1/games')
     .then(checkStatus)
     .catch((err) => {
       throw err;
@@ -23,13 +17,7 @@ export const getAllGames = () => {
 };
 
 export const getGame = (id: string) => {
-  return fetch(`https://mmo-games.p.rapidapi.com/game?id=${id}`, {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '1ac0bc8aaemshaed3d523fedbf09p12cec5jsn37ee6f0e3077',
-      'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
-    },
-  })
+  return fetch(`https://cors-anywhere.herokuapp.com/https://www.mmobomb.com/api1/game?id=${id}`)
     .then(checkStatus)
     .catch((err) => {
       throw err;
