@@ -13,7 +13,7 @@ export const StyledLink = styled(NavLink)`
   padding-bottom: 10px;
   padding-left: 16px;
 
-  color: ${(props) =>props.theme.colorBlack_75};
+  color: ${(props) => props.theme.colorBlack_75};
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
@@ -21,17 +21,17 @@ export const StyledLink = styled(NavLink)`
 
   border-radius: ${(props) => props.theme.defaultBorderRadius};
 
-  background-color: ${(props) =>props.theme.colorBlack_5};
+  background-color: ${(props) => props.theme.colorBlack_5};
 
   &:hover {
-    color: ${(props) =>props.theme.colorWhite};
+    color: ${(props) => props.theme.colorWhite};
 
-    background-color: ${(props) =>props.theme.colorPrimary};
+    background-color: ${(props) => props.theme.colorPrimary};
   }
 
   &.active {
-    color: ${(props) =>props.theme.colorWhite};
+    color: ${(props) => props.theme.colorWhite};
 
-    background-color: ${(props) =>props.theme.colorPrimary_75};
+    background-color: ${(props) => props.theme.colorPrimary_75};
   }
 `;

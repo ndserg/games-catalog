@@ -54,37 +54,3 @@ export const StyledHr = styled.hr`
 	border: none;
 	box-shadow: 0 0 8px 1px ${(props) =>props.theme.colorBlack_75};
 `;
-
-
-export const FavoriteButton = styled.button`
-  width: 48px;
-  height: 48px;
-  padding: 14px;
-
-  border: none;
-  border-radius: ${(props) => props.theme.defaultBorderRadius};
-
-  svg {
-    width: 100%;
-    height: 100%;
-    fill: ${(props) => props.theme.colorBlack_50};
-  }
-
-  @media (min-width: ${(props) =>props.theme.desktopWidth}) {
-    order: 1;
-
-    cursor: ${(props) => props.disabled ? 'default' : 'pointer'};
-    
-    &:hover {
-      svg {
-        fill: ${(props) => props.disabled ? props.theme.colorBlack_50 : props.theme.colorBlack};
-      }
-    }
-  }
-
-  &:active {
-    svg {
-      fill: ${(props) => props.disabled ? props.theme.colorBlack_50 : props.theme.colorPrimary};
-    }
-  }
-`;
