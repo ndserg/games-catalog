@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getLocalGames, getFavoriteGames, setHandlers } from 'servises/localStorage.service';
 import { Game } from 'types/game';
@@ -16,6 +16,7 @@ interface Error {
 }
 
 export const App = () => {
+  const navigate = useNavigate();
   const favoriteGames = getFavoriteGames();
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,6 +35,7 @@ export const App = () => {
 
   const onFavoritesPageHandler = (): void => {
     setIsFavorites((prevState) => !prevState);
+    navigate('/allgames/1');
   };
 
   const onFavoritesListChange = (): void => {

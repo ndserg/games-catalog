@@ -49,7 +49,8 @@ const MainPage = ({ isLoading, games, isFavorite, favorites }: MainPageProps ) =
       genre: '',
       sortType: sortTypes.DESC,
     });
-  }, [platform]);
+  }, [platform, isFavorite]);
+
 
   if (isLoading) {
     return (
