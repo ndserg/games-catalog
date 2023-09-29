@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getLocalGames } from 'servises/localStorage.service';
+import { getLocalGames, getFavoriteGames, setHandlers } from 'servises/localStorage.service';
 import { Game } from 'types/game';
 import { GlobalStyle } from './styles';
 import MainPage from 'components/pages/main-page/main-page';
@@ -16,9 +16,12 @@ interface Error {
 }
 
 export const App = () => {
+  const favoriteGames = getFavoriteGames();
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
+  const [isFavorites, setIsFavorites] = useState<boolean>(false);
+  const [favorites, setFaforites] = useState<number[]>(favoriteGames);
 
   const onLoad: Load = (data) => {
     setError('');
@@ -28,6 +31,20 @@ export const App = () => {
   const onError: Error = (message): void => {
     setError(message);
   };
+
+  const onFavoritesPageHandler = (): void => {
+    setIsFavorites((prevState) => !prevState);
+  };
+
+  const onFavoritesListChange = (): void => {
+    const updatedFAvorites = getFavoriteGames();
+    setFaforites(updatedFAvorites);
+    if (updatedFAvorites.length === 0) {
+      setIsFavorites(false);
+    }
+  };
+
+  setHandlers(onFavoritesListChange);
 
   useEffect(() => {
     setIsLoading(true);
@@ -46,10 +63,10 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Header games={games}/>
+      <Header games={games} toggleFavorites={onFavoritesPageHandler} isFavorite={isFavorites} favorites={favorites}/>
       <Routes>
         <Route path='/' element={<Navigate to='/allgames/' replace />}/>
-        <Route path='/:platform?/:page?' element={<MainPage isLoading={isLoading} games={games} />}/>
+        <Route path='/:platform?/:page?' element={<MainPage isLoading={isLoading} games={games} isFavorite={isFavorites} favorites={favorites}/>}/>
         <Route path='/game/:id' element={<GamePage />}/>
       </Routes>
     </>

@@ -13,10 +13,24 @@ interface Error {
   (message: string): void,
 }
 
+interface HandlerProps {
+  (): void,
+}
+
 const storage: Storage = localStorage;
 
+const handlers = new Set<HandlerProps>();
+
+export const setHandlers = (handler: HandlerProps) => {
+  handlers.add(handler);
+};
+
+const callHandlers = () => {
+  handlers.forEach((handler) => handler());
+};
+
 export const getLocalGames = (onLoad: Load, onError: Error) => {
-  const gamesData = localStorage.getItem('games') || '';
+  const gamesData = storage.getItem('games') || '';
 
   if (gamesData) {
     return onLoad(JSON.parse(gamesData));
@@ -38,7 +52,7 @@ export const getLocalGames = (onLoad: Load, onError: Error) => {
 };
 
 export const getLocalGame = (onLoad: LoadGame, onError: Error, id: string) => {
-  const gameData = localStorage.getItem('game') || '';
+  const gameData = storage.getItem('game') || '';
 
   if (gameData && JSON.parse(gameData).id === Number(id)) {
     return onLoad(JSON.parse(gameData));
@@ -57,4 +71,36 @@ export const getLocalGame = (onLoad: LoadGame, onError: Error, id: string) => {
       storage.setItem('game', JSON.stringify(data));
     })
     .catch((error) => onError(`Ошибка получения данных: ${error.message}`));
+};
+
+export const setFavoriteGame = (newGameId: number ) => {
+  const favoriteGames = storage.getItem('favorites');
+  let updatedFavoritesGames: number[] = [];
+
+  if (!favoriteGames) {
+    updatedFavoritesGames.push(newGameId);
+  } else if (favoriteGames) {
+    const games = JSON.parse(favoriteGames);
+
+    if (!games.includes(newGameId)) {
+      updatedFavoritesGames = [...games, newGameId];
+    } else {
+      const gamesIndex = games.indexOf(newGameId);
+      updatedFavoritesGames = gamesIndex === -1 ? games : [].concat(games.slice(0, gamesIndex), games.slice(gamesIndex + 1));
+    }
+  }
+
+  storage.setItem('favorites', JSON.stringify(updatedFavoritesGames));
+  callHandlers();
+  return true;
+};
+
+export const getFavoriteGames = (): number[] => {
+  const favoriteGames = storage.getItem('favorites');
+
+  if (!favoriteGames) {
+    return [];
+  }
+
+  return JSON.parse(favoriteGames);
 };

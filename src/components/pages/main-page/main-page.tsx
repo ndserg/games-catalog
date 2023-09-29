@@ -16,16 +16,20 @@ type FilterProps = {
 interface MainPageProps {
   isLoading: boolean,
   games: Game[],
+  isFavorite: boolean,
+  favorites: number[],
 }
 
-const MainPage = ({ isLoading, games }: MainPageProps ) => {
+const MainPage = ({ isLoading, games, isFavorite, favorites }: MainPageProps ) => {
   const navigate = useNavigate();
   const { platform, page } = useParams();
   const [filters, setFilters] = useState({
     genre: '',
     sortType: sortTypes.DESC,
   });
-  const gamesByPlatform = platform ? filterByPlatform(games, platform) : games;
+
+  const currentGames = isFavorite ? games.filter((game) => favorites.includes(game.id)) : games;
+  const gamesByPlatform = platform ? filterByPlatform(currentGames, platform) : currentGames;
   const gamesByGenre = filters.genre ? filterByGenre(gamesByPlatform, filters.genre) : gamesByPlatform;
   const gamesByDate = sortByDate(gamesByGenre, filters.sortType);
   const currentPage = page ? Number(page) : 1;
@@ -58,7 +62,7 @@ const MainPage = ({ isLoading, games }: MainPageProps ) => {
   return (
   <Main>
     <h1 className='visually-hidden'>Каталог игр</h1>
-    <Filters games={games} onFilterChange={onFilterChange} currentFilters={filters}/>
+    <Filters games={currentGames} onFilterChange={onFilterChange} currentFilters={filters}/>
     <GamesList games={cropedGames} />
 
     <Pagination
