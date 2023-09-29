@@ -27,6 +27,13 @@ const Search = ({ name, games }: SearchProps ) => {
   };
 
   const inputHandler = (evt: React.ChangeEvent<HTMLInputElement>): void => {
+
+    if (evt.target.value.startsWith(' ') || evt.target.value === '') {
+      setValue('');
+      setFoundedGames([]);
+      return;
+    }
+  
     const searchResults = filterByName(games, evt.target.value);
     setFoundedGames(searchResults);
     setValue(evt.target.value);

@@ -43,12 +43,8 @@ export const filterByName = (items: Game[], title: string): Game[] => {
   let result: Game[] = [];
   const titleSearch = title.trim().toLowerCase();
 
-  if (titleSearch && titleSearch.startsWith(' ')) {
-    return result;
-  }
-  
   if (titleSearch.length > 0 && titleSearch.length < 3) {
-    const regexp = new RegExp(`\\b${title}(\\w+| [^ ]+|$)`, 'gm');
+    const regexp = new RegExp(`\\b${titleSearch}(\\w+| [^ ]+|$)`, 'gm');
     
     result = items.filter((item: Game) => {
       const itemTitle = item.title.toLowerCase();
