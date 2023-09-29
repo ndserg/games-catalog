@@ -80,6 +80,10 @@ export const StyledClearIcon = styled(ClearIcon)`
       fill: ${(props) => props.theme.colorBlack};
     }
   }
+
+  &:active {
+    fill: ${(props) => props.theme.colorBlack_75};
+  }
 `;
 
 export const StyledDotsIcon = styled(DotsIcon)<{ $isFocus: boolean }>`

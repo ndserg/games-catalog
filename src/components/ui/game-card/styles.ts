@@ -14,8 +14,6 @@ export const StyledGameCard = styled.article`
 
   &:active {
     box-shadow: 0px 0px 12px 0px ${(props) => props.theme.colorPrimary_75};
-    transform: scale(1.05);
-    transition: all 0.5s ease-out;
   }
   
   @media (min-width: ${(props) =>props.theme.tabletWidth}) {

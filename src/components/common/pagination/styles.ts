@@ -30,16 +30,24 @@ export const StyledLink = styled(NavLink)`
 
   background-color: ${(props) => props.theme.colorBlack_5};
 
-  &:hover {
-    color: ${(props) =>props.theme.colorWhite};
+  @media (min-width: ${(props) =>props.theme.desktopWidth}) {
+    &:hover {
+      color: ${(props) =>props.theme.colorWhite};
 
-    background-color: ${(props) =>props.theme.colorPrimary};
+      background-color: ${(props) =>props.theme.colorPrimary};
+    }
   }
 
   &.active {
     color: ${(props) =>props.theme.colorWhite};
 
     background-color: ${(props) =>props.theme.colorPrimary_75};
+  }
+
+  &:active {
+    color: ${(props) =>props.theme.colorWhite_75};
+
+    background-color: ${(props) =>props.theme.colorPrimary_50};
   }
 `;
 
