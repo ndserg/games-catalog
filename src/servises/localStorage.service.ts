@@ -32,7 +32,11 @@ const callHandlers = () => {
 export const getLocalGames = (onLoad: Load, onError: Error) => {
   const gamesData = storage.getItem('games') || '';
 
-  if (gamesData) {
+  const lastUpdate = storage.getItem('lastFetch') ? storage.getItem('lastFetch') : 0;
+
+  const isOutDated = lastUpdate ? Date.now() - Number(lastUpdate) >= 86400000 : true;
+
+  if (gamesData && !isOutDated) {
     return onLoad(JSON.parse(gamesData));
   }
 
@@ -47,6 +51,7 @@ export const getLocalGames = (onLoad: Load, onError: Error) => {
     .then((data: Game[]) => {
       onLoad(data);
       storage.setItem('games', JSON.stringify(data));
+      storage.setItem('lastFetch', Date.now().toString());
     })
     .catch((error) => onError(`Ошибка получения данных: ${error.message}`));
 };

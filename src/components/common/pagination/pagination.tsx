@@ -1,5 +1,5 @@
 import { Li } from 'components/styled';
-import { StyledList, StyledLink, StyledSpan, NavButton } from './styles';
+import { StyledNav, StyledList, StyledLink, StyledSpan, NavButton } from './styles';
 
 interface PaginationProps {
   itemsCount: number,
@@ -37,7 +37,7 @@ const Pagination = ({ itemsCount, pageSize, currentCategory, currentPage }: Pagi
   }
 
   return (
-    <nav className="container">
+    <StyledNav as='nav'>
       <StyledList>
         {prevPage && <NavButton to={`${currentPath}/${prevPage}`}>&#9668;</NavButton>}
         {cropedPages.map((page, idx) => {
@@ -56,7 +56,7 @@ const Pagination = ({ itemsCount, pageSize, currentCategory, currentPage }: Pagi
         })}
         {nextPage && <NavButton to={`${currentPath}/${nextPage}`}>&#9658;</NavButton>}
       </StyledList>
-    </nav>
+    </StyledNav>
   );
 };
 

@@ -16,7 +16,7 @@ type SystemRequirements = {
   [key: string]: string
 };
 
-type Screenshot = {
+export type Screenshot = {
   id: number,
   image: string,
 };

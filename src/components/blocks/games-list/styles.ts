@@ -1,6 +1,9 @@
 import styled from 'styled-components';
-import { Ul } from 'components/styled';
+import { Ul, Container } from 'components/styled';
 import { Link } from 'react-router-dom';
+
+export const GameListContainer = styled(Container)`
+`;
 
 export const StyledList = styled(Ul)`
   display: flex;

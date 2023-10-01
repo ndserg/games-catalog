@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Ul, Li } from 'components/styled';
+import { Ul, Li, Container } from 'components/styled';
 
 const buttonSyle = css`
   display: block;
@@ -33,7 +33,7 @@ const buttonSyle = css`
   }
 `;
 
-export const FiltersWrapper = styled.section`
+export const FiltersWrapper = styled(Container)`
   display: flex;
   margin-bottom: 30px;
   padding: 16px;
@@ -41,6 +41,11 @@ export const FiltersWrapper = styled.section`
   border-radius: ${(props) => props.theme.defaultBorderRadius};
 
   background-color: ${(props) => props.theme.colorBlack_5};
+
+  @media (min-width: ${(props) =>props.theme.desktopWidth}) {
+    padding-right: 70px;
+    padding-left: 70px;
+  }
 `;
 
 export const FilterSelect = styled.div`

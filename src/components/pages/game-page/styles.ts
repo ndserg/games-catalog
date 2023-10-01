@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { Ul } from 'components/styled';
-import { Li } from 'components/styled';
+import { Ul, Li, Container } from 'components/styled';
 
-export const Container = styled.main`
+export const GameContainer = styled(Container)`
   @media (min-width: ${(props) =>props.theme.desktopWidth}) {
     display: flex;
     flex-wrap: wrap;
@@ -60,20 +59,6 @@ export const Title = styled.h1`
   }
 `;
 
-export const Image = styled.img`
-  width: 328px;
-
-  border-radius: ${(props) => props.theme.defaultBorderRadius};
-
-  @media (min-width: ${(props) =>props.theme.tabletWidth}) {
-    width: 540px;
-  }
-
-  @media (min-width: ${(props) =>props.theme.desktopWidth}) {
-    max-width: 50%;
-  }
-`;
-
 export const Description = styled.p`
   margin: 0;
   margin-bottom: 20px;
@@ -88,10 +73,36 @@ export const Description = styled.p`
   }
 
   @media (min-width: ${(props) =>props.theme.desktopWidth}) {
-    max-width: 50%;
-    margin-right: 50px;
+    width: calc(50% - 30px);
+    margin-right: 30px;
     margin-bottom: 0;
   }
+`;
+
+export const SlideContainer = styled.figure`
+  position: relative;
+
+  width: 328px;
+  margin: 0;
+
+  border-radius: ${(props) => props.theme.defaultBorderRadius};
+
+  @media (min-width: ${(props) => props.theme.tabletWidth}) {
+    width: 540px;
+  }
+
+  @media (min-width: ${(props) => props.theme.desktopWidth}) {
+    width: 50%;
+  }
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: ${(props) => props.theme.defaultBorderRadius};
 `;
 
 export const StyledList = styled(Ul)`
@@ -113,11 +124,13 @@ export const StyledList = styled(Ul)`
   }
 `;
 
-export const ImageItem = styled(Li)`
+export const ImageItem = styled(Li)<{ $current: boolean }>`
   width: 180px;
   padding: 10px;
 
   border-radius: ${(props) => props.theme.defaultBorderRadius};
+
+  background-color: ${(props) => props.$current ? props.theme.colorPrimary_15 : props.theme.colorWhite};
 
   box-shadow: 0px 0px 22px 0px rgba(0, 0, 0, 0.07);
 
@@ -126,12 +139,25 @@ export const ImageItem = styled(Li)`
   }
 
   @media (min-width: ${(props) =>props.theme.desktopWidth}) {
+    width: 264px;
+    
+    &:hover {
+      transform: scale(0.95);
+
+      box-shadow: 0px 0px 22px 0px ${(props) =>props.theme.colorPrimary_50};
+    }
+  }
+
+  @media (min-width:1512px) {
     width: 304px;
   }
 `;
 
 export const Thumbnail = styled.img`
   width: 100%;
+  height: 100%;
+
+  object-fit: cover;
 
   border-radius: ${(props) => props.theme.defaultBorderRadius};
 `;
@@ -200,4 +226,43 @@ export const TableCell = styled.td`
       width: 30%;
     }
   }
+`;
+
+export const NavButton = styled.button`
+  position: absolute;
+  top: calc(50% - 18px);
+  left: 10px;
+
+  display: block;
+  width: 36px;
+  height: 36px;
+
+  color: ${(props) => props.theme.colorWhite};
+  font-size: 18px;
+
+  border: none;
+  border-radius: ${(props) => props.theme.defaultBorderRadius};
+
+  background-color: ${(props) => props.theme.colorBlack_75};
+
+  &:last-of-type {
+    left: auto;
+    right: 10px;
+  }
+
+  @media (min-width: ${(props) =>props.theme.desktopWidth}) {
+    cursor: pointer;
+
+    &:hover {
+      color: ${(props) => props.theme.colorWhite_50};
+
+      background-color: ${(props) => props.theme.colorBlack_50};
+    }
+  }
+
+  &:active {
+      color: ${(props) => props.theme.colorPrimary_75};
+
+      background-color: ${(props) => props.theme.colorBlack_75};
+    }
 `;

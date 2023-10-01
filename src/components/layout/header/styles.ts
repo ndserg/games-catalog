@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Container } from 'components/styled';
 import { ReactComponent as Logo } from 'assets/logo.svg';
 
-export const HeaderWrapper = styled.header`
+export const HeaderWrapper = styled(Container)`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
