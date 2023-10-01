@@ -1,7 +1,8 @@
+const apiUrl = 'https://mmo-games.p.rapidapi.com';
+const localDataURL = '/php/game_fetch.php';
+
 const checkStatus = (response: Response) => {
-  if (response.headers.get('Content-Type')?.includes('text/html')) {
-    throw new Error('Запрашиваемая страница не найдена!');
-  } else if (response.status >= 200 && response.status < 300) {
+  if (response.status >= 200 && response.status < 300) {
     return response;
   } else {
     throw new Error(`${response.status}: ${response.statusText}`);
@@ -9,7 +10,12 @@ const checkStatus = (response: Response) => {
 };
 
 export const getAllGames = () => {
-  return fetch('https://cors-anywhere.herokuapp.com/https://www.mmobomb.com/api1/games')
+  return fetch(`${localDataURL}?url=${apiUrl}/games`, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+  })
     .then(checkStatus)
     .catch((err) => {
       throw err;
@@ -17,7 +23,12 @@ export const getAllGames = () => {
 };
 
 export const getGame = (id: string) => {
-  return fetch(`https://cors-anywhere.herokuapp.com/https://www.mmobomb.com/api1/game?id=${id}`)
+  return fetch(`${localDataURL}?isGame=true&url=${apiUrl}/game?id=${id}`, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+  })
     .then(checkStatus)
     .catch((err) => {
       throw err;

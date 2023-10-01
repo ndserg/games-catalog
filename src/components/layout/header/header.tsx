@@ -14,7 +14,7 @@ interface HeaderProps {
 const Header = ({ games, toggleFavorites, isFavorite, favorites }: HeaderProps ) => {
   return (
     <>
-      <HeaderWrapper className="container">
+      <HeaderWrapper as='header'>
         <StyledLink to="/">
           <HeaderLogo/>
         </StyledLink>

@@ -63,7 +63,8 @@ const Filters = ({ games, onFilterChange, currentFilters }: FiltersProps) => {
   }, [isChecked]);
 
   return (
-    <FiltersWrapper className="container">
+    <FiltersWrapper as="section">
+      <h2 className="visually-hidden">Фильтры по жанрам и дате</h2>
       <FilterSelect ref={selectList}>
 
         <StyledInput

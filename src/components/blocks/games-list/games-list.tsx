@@ -1,7 +1,7 @@
 import { Game } from 'types/game';
 import GameCard from '../../ui/game-card/game-card';
 import { Li } from 'components/styled';
-import { StyledList, StyledLink } from './styles';
+import { GameListContainer, StyledList, StyledLink } from './styles';
 import { getFavoriteGames } from 'servises/localStorage.service';
 
 type GamesListProps = {
@@ -16,7 +16,8 @@ const GamesList = ({ games }: GamesListProps) => {
   };
 
   return (
-    <section className='container'>
+    <GameListContainer as='section'>
+      <h2 className="visually-hidden">Список Игр</h2>
       <StyledList>
         {games && games.map((game) => (
           <Li key={game.id}>
@@ -26,7 +27,7 @@ const GamesList = ({ games }: GamesListProps) => {
           </Li>
         ))}
       </StyledList>
-    </section>
+    </GameListContainer>
   );
 };
  

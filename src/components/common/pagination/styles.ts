@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { Ul } from 'components/styled';
+import { Ul, Container } from 'components/styled';
+
+export const StyledNav = styled(Container)``;
 
 export const StyledList = styled(Ul)`
   display: flex;
