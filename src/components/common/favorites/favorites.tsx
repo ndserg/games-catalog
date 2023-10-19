@@ -1,19 +1,22 @@
 import { ReactComponent as FavoriteImg } from 'assets/icon-favorite.svg';
-import { FavoriteButton } from './styles';
+import { FavoritesWrapper, FavoriteButton, FavoritesCount } from './styles';
 
 type FavoritesProps = {
   onFavoritesToggle: () => void,
-  isFavorite: boolean,
+  isFavoritesPage: boolean,
   favorites: number[],
 };
 
-const Favorites = ({ onFavoritesToggle, isFavorite, favorites }: FavoritesProps) => {
+const Favorites = ({ onFavoritesToggle, isFavoritesPage, favorites }: FavoritesProps) => {
   const isDisabled = favorites.length === 0;
 
   return (
-    <FavoriteButton disabled={isDisabled} $isFavorite={isFavorite} onClick={onFavoritesToggle}>
-      <FavoriteImg />
-    </FavoriteButton>
+    <FavoritesWrapper>
+      <FavoriteButton disabled={isDisabled} $isFavoritesPage={isFavoritesPage} onClick={onFavoritesToggle}>
+        <FavoriteImg />
+      </FavoriteButton>
+      {!isDisabled && <FavoritesCount>{favorites.length}</FavoritesCount>}
+    </FavoritesWrapper>
   );
 };
  

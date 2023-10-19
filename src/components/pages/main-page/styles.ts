@@ -10,3 +10,13 @@ export const Main = styled.main`
   }
 `;
 
+export const NoFound = styled.p`
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  font-size: 32px;
+  line-height: normal;
+  text-align: center;
+`;
+

@@ -80,7 +80,7 @@ const Filters = ({ games, onFilterChange, currentFilters }: FiltersProps) => {
         </FilterLabel>
 
         <SelectList onClick={filterChangeHandler}>
-          <SelectItem>All</SelectItem>
+          <SelectItem data-genre={'All'}>All</SelectItem>
           {genres && Object.keys(genres).map((item, idx) => (
             <SelectItem key={`${item}_${idx}`} data-genre={item}>{item}</SelectItem>
           ))}
