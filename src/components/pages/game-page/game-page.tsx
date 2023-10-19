@@ -1,17 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getLocalGame } from 'servises/localStorage.service';
 import Loading from 'components/ui/loading/loading';
-import { GameDescription, Screenshot } from 'types/game';
 import { GameContainer, GameHeader, Title, Image, Description, StyledList, ImageItem, Thumbnail, Table, TableTitle, TableRow, TableCell, SlideContainer, NavButton } from './styles';
-
-interface LoadGame {
-  (data: GameDescription): void,
-}
-
-interface Error {
-  (message: string): void,
-}
+import { fetchGame } from 'store/gameAsyncActions';
+import { useAppDispatch } from 'store/redux-hooks';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store/store';
 
 const directions = {
   NEXT: 'next',
@@ -20,25 +14,33 @@ const directions = {
 
 const GamePage = () => {
   const { id = '' } = useParams();
-  const [game, setGame] = useState<GameDescription | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-  const [images, setimages] = useState<Screenshot[]>([]);
+  const { game, error, isLoading } = useSelector((state: RootState) => state.game);
   const [currentImg, setCurrentImg] = useState<number>(0);
+  const dispatch = useAppDispatch();
 
-  const onLoad: LoadGame = (data) => {
-    const { screenshots, thumbnail } = data;
-    screenshots.unshift({ id: Date.now(), image: thumbnail });
-    setError('');
-    setGame(data);
-    setimages(screenshots);
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchGame(id));
+    }
+  }, [id, dispatch]);
   
-  const onError: Error = (message): void => {
-    setError(message);
-    setIsLoading(false);
-  };
+  if (error) {
+    return (
+      <h1>{error}</h1>
+    );
+  }
+
+  if (isLoading || !game) {
+    return (
+      <section>
+        <Loading />
+      </section>
+    );
+  }
+
+  const description = game.description.replaceAll(/<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g, '');
+  const { screenshots, thumbnail } = game;
+  const images = [{ id: Date.now(), image: thumbnail }, ...screenshots];
 
   const setSlideIndex = (direction: string) => {
     const slidesCount = images.length;
@@ -62,27 +64,6 @@ const GamePage = () => {
       setCurrentImg(images.findIndex((image) => image.id === index));
     }
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-  
-    getLocalGame(onLoad, onError, id);
-  }, [id]);
-  
-  if (error) {
-    return (
-      <h1>{error}</h1>
-    );
-  }
-
-  if (isLoading || !game || !images) {
-    return (
-      <section>
-        <Loading />
-      </section>
-    );
-  }
-  const description = game.description.replaceAll(/<(?:"[^"]*"['"]*|'[^']*'['"]*|[^'">])+>/g, '');
 
   return (
     <GameContainer as='main' onClick={sliderClickHandler}>

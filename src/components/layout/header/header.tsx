@@ -7,11 +7,11 @@ import Favorites from 'components/common/favorites/favorites';
 interface HeaderProps {
   games: Game[],
   toggleFavorites: () => void,
-  isFavorite: boolean,
+  isFavoritesPage: boolean,
   favorites: number[],
 }
 
-const Header = ({ games, toggleFavorites, isFavorite, favorites }: HeaderProps ) => {
+const Header = ({ games, toggleFavorites, isFavoritesPage, favorites }: HeaderProps ) => {
   return (
     <>
       <HeaderWrapper as='header'>
@@ -21,7 +21,7 @@ const Header = ({ games, toggleFavorites, isFavorite, favorites }: HeaderProps )
         
         <Nav />
         
-        <Favorites onFavoritesToggle={toggleFavorites} isFavorite={isFavorite} favorites={favorites}/>
+        <Favorites onFavoritesToggle={toggleFavorites} isFavoritesPage={isFavoritesPage} favorites={favorites}/>
 
         <Search name="search" games={games} />
       </HeaderWrapper>

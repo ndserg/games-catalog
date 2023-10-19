@@ -34,9 +34,13 @@ export const sortByDate = (items: Game[], sortDirection: string) => {
 };
 
 export const filterByGenre = (items: Game[], genre: string): Game[] => {
-  const gamesByGenre = items.filter((item: Game) => item.genre === genre);
-
-  return gamesByGenre;
+  if (genre === 'All') {
+    return items;
+  } else {
+    const gamesByGenre = items.filter((item: Game) => item.genre === genre);
+    
+    return gamesByGenre;
+  }
 };
 
 export const filterByName = (items: Game[], title: string): Game[] => {

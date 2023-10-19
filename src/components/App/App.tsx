@@ -1,61 +1,44 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { getLocalGames, getFavoriteGames, setHandlers } from 'servises/localStorage.service';
-import { Game } from 'types/game';
 import { GlobalStyle } from './styles';
 import MainPage from 'components/pages/main-page/main-page';
 import GamePage from 'components/pages/game-page/game-page';
 import Header from 'components/layout/header/header';
+import { useAppDispatch } from 'store/redux-hooks';
+import { RootState } from 'store/store';
+import { fetchGames } from 'store/gamesAsyncActions';
+import { useSelector } from 'react-redux';
+import { loadFavorites } from 'store/favoriteGamesSlice';
 
-interface Load {
-  (data: Game[]): void,
-}
-
-interface Error {
-  (message: string): void,
-}
 
 export const App = () => {
   const navigate = useNavigate();
-  const favoriteGames = getFavoriteGames();
-  const [games, setGames] = useState<Game[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
-  const [isFavorites, setIsFavorites] = useState<boolean>(false);
-  const [favorites, setFaforites] = useState<number[]>(favoriteGames);
-
-  const onLoad: Load = (data) => {
-    setError('');
-    setGames(data);
-    setIsLoading(false);
-  };
-
-  const onError: Error = (message): void => {
-    setError(message);
-    setIsLoading(false);
-  };
+  const [isFavoritesPage, setIsFavoritesPage] = useState<boolean>(false);
+  const { list: games, error, isLoading } = useSelector((state: RootState) => state.games);
+  const { favorites } = useSelector((state: RootState) => state.favorites);
+  const dispatch = useAppDispatch();
 
   const onFavoritesPageHandler = (): void => {
-    setIsFavorites((prevState) => !prevState);
+    setIsFavoritesPage((prevState) => !prevState);
     navigate('/allgames/1');
   };
 
-  const onFavoritesListChange = (): void => {
-    const updatedFAvorites = getFavoriteGames();
-    setFaforites(updatedFAvorites);
-    if (updatedFAvorites.length === 0) {
-      setIsFavorites(false);
-    }
-  };
+  useEffect(() => {
+    dispatch(fetchGames());
 
-  setHandlers(onFavoritesListChange);
+  }, [dispatch]);
 
   useEffect(() => {
-    setIsLoading(true);
+    if (favorites.length === 0) {
+      setIsFavoritesPage(false);
+    }
 
-    getLocalGames(onLoad, onError);
+  }, [favorites, navigate]);
 
-  }, []);
+  useEffect(() => {
+    dispatch(loadFavorites());
+
+  }, [dispatch]);
 
   if (error) {
     return (
@@ -66,10 +49,10 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Header games={games} toggleFavorites={onFavoritesPageHandler} isFavorite={isFavorites} favorites={favorites}/>
+      <Header games={games} toggleFavorites={onFavoritesPageHandler} isFavoritesPage={isFavoritesPage} favorites={favorites}/>
       <Routes>
         <Route path='/' element={<Navigate to='/allgames/' replace />}/>
-        <Route path='/:platform?/:page?' element={<MainPage isLoading={isLoading} games={games} isFavorite={isFavorites} favorites={favorites}/>}/>
+        <Route path='/:platform?/:page?' element={<MainPage isLoading={isLoading} games={games} isFavoritesPage={isFavoritesPage} favorites={favorites}/>}/>
         <Route path='/game/:id' element={<GamePage />}/>
       </Routes>
     </>

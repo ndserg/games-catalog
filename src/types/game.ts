@@ -21,7 +21,7 @@ export type Screenshot = {
   image: string,
 };
 
-export interface GameDescription extends Game {
+export interface FullGameInfo extends Game {
   description: string,
   screenshots: Screenshot[],
   status: string,
